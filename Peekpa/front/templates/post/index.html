@@ -1,0 +1,117 @@
+{% extends 'base/front_base.html' %}
+{% load time_filters %}
+{% block title %}
+    Peekpa
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4 mb-4">
+        <div class="row">
+            <div class="col-md-8">
+
+            {% if top_post %}
+                {% if top_post.0 %}
+                    <!-- 大焦点图 -->
+                    <div class="row mb-2" style="height: 230px;background-color: white">
+                        <div class="col-md-7 p-0 h-100">
+                            <a href="{% url 'post:detail' time_id=top_post.0.time_id%}" class="w-100 h-100">
+                                <img src="{{ top_post.0.thumbnail }}" class="w-100 h-100">
+                            </a>
+                        </div>
+
+                        <div class="col-md-5">
+                            <p class="h5 mt-3 border-bottom mb-0 pb-2"><a href="{% url 'post:detail' time_id=top_post.0.time_id%}" class="text-decoration-none text-dark" style="">{{ top_post.0.title }}</a>
+                            </p>
+                            <div class="d-flex flex-row justify-content-between mt-2">
+                                <p class="font-weight-light small pl-1 ">{{ top_post.0.author.username }}</p>
+                                <p class="font-weight-light small pr-1">{{ top_post.0.publish_time | data_format_y_m_d }}</p>
+                            </div>
+                            <p class="small" style="font-size: 95%;">{{ top_post.0.description }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- 三小图 -->
+                <div class="row mb-3" style="height: 130px;">
+                    {% if top_post.1 %}
+                        <!-- 三小图(左) -->
+                        <div class="col-sm-4 pl-0 pr-1 position-relative h-100">
+                            <a href="{% url 'post:detail' time_id=top_post.1.time_id%}" class="w-100 h-100">
+                                <img src="{{ top_post.1.thumbnail }}" class="w-100 h-100">
+                                <div class="position-absolute mr-1" style="bottom:0;background-color: rgba(58,58,58,0.9)">
+                                    <p class="small m-1 text-light">
+                                        {{ top_post.1.title }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if top_post.2 %}
+                        <!-- 三小图(中) -->
+                        <div class="col-sm-4 pl-1 pr-1 position-relative h-100">
+                            <a href="{% url 'post:detail' time_id=top_post.2.time_id%}" class="w-100 h-100">
+                                <img src="{{ top_post.2.thumbnail }}" class="w-100 h-100">
+                                <div class="position-absolute mr-1" style="bottom:0;background-color: rgba(58,58,58,0.9)">
+                                    <p class="small m-1 text-light">
+                                        {{ top_post.2.title }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if top_post.3 %}
+                        <!-- 三小图(右) -->
+                        <div class="col-sm-4 pl-1 pr-0 position-relative h-100">
+                            <a href="{% url 'post:detail' time_id=top_post.3.time_id%}" class="w-100 h-100">
+                                <img src="{{ top_post.3.thumbnail }}" class="w-100 h-100">
+                                <div class="position-absolute" style="bottom:0;background-color: rgba(58,58,58,0.9)">
+                                    <p class="small m-1 text-light">
+                                        {{ top_post.3.title }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+                <!-- 左侧文章列表 -->
+                <div class="row">
+                    <ul class="col-sm-12 d-block">
+                        {% for post in list_post %}
+                            <!-- 文章 -->
+                            <li class="row mb-3" style="height: 180px;background-color: white">
+                                <div class="col-sm-4 p-3 h-100">
+                                    <a href="{% url 'post:detail' time_id=post.time_id %}" class="w-100 h-100">
+                                        <img src="{{ post.thumbnail }}" class="w-100 h-100">
+                                        <div class="position-absolute mt-3"
+                                             style="top:0;background-color: rgba(32,120,255,0.9)">
+                                            <p class="small m-1 text-light">{{ post.category.name }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-sm-8 d-flex flex-column">
+                                    <p class="h5 mt-3 border-bottom mb-0 pb-2">
+                                        <a href="{% url 'post:detail' time_id=post.time_id %}" class="text-decoration-none text-dark">{{ post.title }}
+                                        </a>
+                                    </p>
+                                    <p class="small mt-2" style="font-size: 95%;">{{ post.description }}</p>
+                                    <div class="d-flex flex-row justify-content-between mt-auto">
+                                        <p class="font-weight-light small pl-1 mb-3">{{ post.author.username }}</p>
+                                        <p class="font-weight-light small pr-1 mb-3">阅读({{ post.read_num }})</p>
+                                        <p class="font-weight-light small pr-1 mb-3">{{ post.publish_time | data_format_y_m_d }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+            {% include 'post/right_section.html' %}
+
+        </div>
+    </div>
+{% endblock %}
+

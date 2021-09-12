@@ -1,0 +1,57 @@
+{% extends 'cms/base/cms_base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block title %}
+    Category Management
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid pt-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row p-2 d-flex justify-content-between">
+                                <p class="h3">分类标签管理</p>
+                                <div class="float-right">
+                                    <a class="btn btn-primary text-right" href="{% url 'cms:category_publish_view' %}"><i class="mr-2 fas fa-plus"></i>新增</a>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 10%;">#</th>
+                                        <th>category_name</th>
+                                        <th>create_time</th>
+                                        <th class="w-25">actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in list_data %}
+                                        <tr>
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.create_time }}</td>
+                                            <td>
+                                                <a href="{% url 'cms:category_edit_view' %}?category_id={{ item.id }}" class="btn btn-info btn-xs">修改</a>
+                                                <a href="{% url 'cms:category_delete' %}?category_id={{ item.id }}" class="btn btn-danger btn-xs">删除</a>
+                                                <a href="{% url 'cms:category_delete' %}?category_id={{ item.id }}" class="btn btn-danger btn-xs">删除</a>
+                                                <button class="btn btn-danger btn-xs delete-btn" data-category-id="{{ item.id }}">
+                                                    删除
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

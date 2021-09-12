@@ -1,0 +1,174 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="{% url 'cms:dashboard' %}" class="brand-link">
+        <img src="{% static 'image/cms_logo.png' %}" class="brand-image img-circle elevation-3"
+             style="opacity: .8" />
+        <span class="brand-text font-weight-light">Peekpa 管理系统</span>
+    </a>
+
+    <div class="sidebar">
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
+                {% url 'cms:dashboard' as cms_home_page %}
+                <li class="nav-item">
+                    <a href="{{ cms_home_page }}"
+                       class="nav-link {% if request.path == cms_home_page %}active{% endif %}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            控制台
+                        </p>
+                    </a>
+                </li>
+                {% url 'cms:category_manage_view' as category_manage_view %}
+                {% url 'cms:category_publish_view' as category_publish_view %}
+                {% url 'cms:category_edit_view' as category_edit_view %}
+                <li class="nav-item has-treeview {% if request.path == category_manage_view or request.path == category_publish_view or request.path == category_edit_view %}menu-open{% endif %}">
+                    <a href="#"
+                       class="nav-link {% if request.path == category_manage_view or request.path == category_publish_view or request.path == category_edit_view %}active{% endif %}">
+                        <i class="nav-icon far fa-bookmark"></i>
+                        <p>
+                            分类标签
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ category_manage_view }}"
+                               class="nav-link {% if request.path == category_manage_view or request.path == category_edit_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>标签列表</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ category_publish_view }}"
+                               class="nav-link {% if request.path == category_publish_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>标签发布</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% url 'cms:post_manage_view' as post_manage_view %}
+                {% url 'cms:post_publish_view' as post_publish_view %}
+                {% url 'cms:post_edit_view' as post_edit_view %}
+                <li class="nav-item has-treeview {% if request.path == post_manage_view or request.path == post_publish_view or request.path == post_edit_view %}menu-open{% endif %}">
+                    <a href="{{ post_manage_view }}"
+                       class="nav-link {% if request.path == post_manage_view or request.path == post_publish_view or request.path == post_edit_view %}active{% endif %}">
+                        <i class="nav-icon far fa-copy"></i>
+                        <p>
+                            文章管理
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ post_manage_view }}"
+                               class="nav-link {% if request.path == post_manage_view or request.path == post_edit_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>文章列表</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ post_publish_view }}"
+                               class="nav-link {% if request.path == post_publish_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>文章发布</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% url 'cms:link_manage_view' as link_manage_view %}
+                {% url 'cms:link_publish_view' as link_publish_view %}
+                {% url 'cms:link_edit_view' as link_edit_view %}
+                <li class="nav-item has-treeview {% if request.path == link_manage_view or request.path == link_publish_view or request.path == link_edit_view %}menu-open{% endif %}">
+                    <a href="#"
+                       class="nav-link {% if request.path == link_manage_view or request.path == link_publish_view or request.path == link_edit_view %}active{% endif %}">
+                        <i class="nav-icon fas fa-link"></i>
+                        <p>
+                            友链管理
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'cms:link_manage_view' %}"
+                               class="nav-link {% if request.path == link_manage_view or request.path == link_edit_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>友链列表</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'cms:link_publish_view' %}"
+                               class="nav-link {% if request.path == link_publish_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>新建友链</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% url 'cms:advertise_manage_view' as advertise_manage_view %}
+                {% url 'cms:advertise_publish_view' as advertise_publish_view %}
+                {% url 'cms:advertise_edit_view' as advertise_edit_view %}
+                <li class="nav-item has-treeview {% if request.path == advertise_manage_view or request.path == advertise_publish_view or request.path == advertise_edit_view %}menu-open{% endif %}">
+                    <a href="#"
+                       class="nav-link {% if request.path == advertise_manage_view or request.path == advertise_publish_view or request.path == advertise_edit_view %}active{% endif %}">
+                        <i class="nav-icon fas fa-ad"></i>
+                        <p>
+                            广告管理
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'cms:advertise_manage_view' %}"
+                               class="nav-link {% if request.path == advertise_manage_view or request.path == advertise_edit_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>广告列表</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'cms:advertise_publish_view' %}"
+                               class="nav-link {% if request.path == advertise_publish_view %}active{% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>新建广告</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% if request.user.is_superuser %}
+                    {% url 'cms:user_manage_view' as user_manage_view %}
+                    {% url 'cms:user_publish_view' as user_publish_view %}
+                    {% url 'cms:user_edit_view' as user_edit_view%}
+                    <li class="nav-item has-treeview {% if request.path == user_manage_view or request.path == user_publish_view  or request.path == user_edit_view %}menu-open{% endif %}">
+                        <a href="#"
+                           class="nav-link {% if request.path == user_manage_view or request.path == user_publish_view or request.path == user_edit_view %}active{% endif %}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                用户管理
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'cms:user_manage_view' %}"
+                                   class="nav-link {% if request.path == user_manage_view  or request.path == user_edit_view %}active{% endif %}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>用户列表</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'cms:user_publish_view' %}"
+                                   class="nav-link {% if request.path == user_publish_view%}active{% endif %}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>新建用户</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</aside>

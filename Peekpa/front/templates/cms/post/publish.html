@@ -1,0 +1,165 @@
+{% extends 'cms/base/cms_base.html' %}
+
+{% block title %}
+    Post Publish
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center pt-4">
+                <div class="col-sm-11">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            {% if item_data %}
+                                <h3 class="card-title">文章修改</h3>
+                            {% else %}
+                                <h3 class="card-title">文章发布</h3>
+                            {% endif %}
+                        </div>
+                        <form class="form-horizontal" action="{% url 'cms:post_add' %}" method="post">
+                            {% csrf_token %}
+                            {% if item_data %}
+                                <input type="text" class="form-control" id="pk" name="pk" value="{{ item_data.id }}" hidden>
+                            {% endif %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="title" class="">Title</label>
+                                    {% if item_data %}
+                                        <input type="text" class="form-control" id="title" name="title" value="{{ item_data.title }}">
+                                    {% else %}
+                                        <input type="text" class="form-control" id="title" name="title">
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" class="">Description</label>
+                                    {% if item_data %}
+                                        <textarea type="text" class="form-control" id="description" name="description">{{ item_data.description|safe }}</textarea>
+                                    {% else %}
+                                        <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="thumbnail" class="">Thumbnail</label>
+                                            {% if item_data %}
+                                                <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="{{ item_data.thumbnail }}">
+                                            {% else %}
+                                                <input type="text" class="form-control" id="thumbnail" name="thumbnail">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="author" class="">Author</label>
+                                            <select name="author" id="author" class="custom-select">
+                                                {% if item_data %}
+                                                    {% for item in list_data_user %}
+                                                        <option value="{{ item.uid }}" {% if item.uid == item_data.author.uid %} selected {% endif %}>{{ item.username }}</option>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {% for item in list_data_user %}
+                                                        <option value="{{ item.uid }}">{{ item.username }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="status" class="">Status</label>
+                                            <select name="status" id="status" class="custom-select">
+                                                {% if item_data %}
+                                                    {% for item in list_data_status %}
+                                                        <option value="{{ item.0 }}" {% if item.0 == item_data.status %} selected {% endif %}>{{ item.1 }}</option>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {% for item in list_data_status %}
+                                                        <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="time_id" class="">Time ID</label>
+                                            {% if item_data %}
+                                                <input type="text" class="form-control" id="time_id" name="time_id" value="{{ item_data.time_id }}">
+                                            {% else %}
+                                                <input type="text" class="form-control" id="time_id" name="time_id" readonly>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="priority" class="">Priority</label>
+                                            {% if item_data %}
+                                                <input type="number" class="form-control" id="priority" name="priority" value="{{ item_data.priority }}">
+                                            {% else %}
+                                                <input type="number" class="form-control" id="priority" name="priority" value="0">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="is_hot" class="">Is Hot</label>
+                                            <select name="is_hot" id="is_hot" class="custom-select">
+                                                {% if item_data %}
+                                                    <option value="True" {% if True == item_data.is_hot %} selected {% endif %}>Yes</option>
+                                                    <option value="False" {% if False == item_data.is_hot %} selected {% endif %}>No</option>
+                                                {% else %}
+                                                    <option value="True">Yes</option>
+                                                    <option value="False">No</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="category" class="">Category</label>
+                                            <select name="category" id="category" class="custom-select">
+                                                {% if item_data %}
+                                                    <option value="">Choose...</option>
+                                                    {% for item in list_data_category %}
+                                                        <option value="{{ item.id }}" {% if item.id == item_data.category.id %} selected {% endif %}>{{ item.name }}</option>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <option value="">Choose...</option>
+                                                    {% for item in list_data_category %}
+                                                        <option value="{{ item.id }}">{{ item.name }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content" class="">Content</label>
+                                    {% if item_data %}
+                                        <textarea type="text" class="form-control" id="content" name="content" rows="10">{{ item_data.content | safe }}</textarea>
+                                    {% else %}
+                                        <textarea type="text" class="form-control" id="content" name="content" rows="10"></textarea>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                {% if item_data %}
+                                    <button type="submit" class="btn btn-info" name="modify">确认</button>
+                                    <button type="submit" class="btn btn-danger float-right" name="cancel">取消</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-primary" name="submit">提交</button>
+                                    <button type="submit" class="btn btn-danger float-right" name="back">返回</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

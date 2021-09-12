@@ -1,0 +1,61 @@
+{% extends 'base/front_base.html' %}
+{% load time_filters %}
+{% block title %}
+Peekpa 文章详情页
+{% endblock %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai-sublime.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad()</script>
+    <link rel="stylesheet"  href="{% static 'css/post_detail.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-sm-2 position-static position-sticky sticky-top float-left list-group-flush pt-4 pr-1">
+        {% if toc %}
+            {% autoescape off%}
+                {{ toc }}
+            {% endautoescape %}
+        {% endif %}
+    </div>
+
+    <div class="row mt-4 mb-4 col-sm-10 {% if not toc %}offset-sm-2{% endif %}">
+        <div class="col-md-8" >
+            <!-- 标题和文章基本信息 -->
+            <div class="row" style="background-color: white">
+                <div class="col-md-12 mt-4 mb-2">
+                    <p class="h3">{{ post_data.title }}</p>
+                    <hr>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="d-flex flex-row">
+                        <p class="font-weight-light small mr-4">{{ post_data.author.username }}</p>
+                        <p class="font-weight-light small mr-4"><a href="#" class="text-decoration-none text-dark"><i class="fas fa-list mr-1"></i>{{ post_data.category.name }}</a></p>
+                        <p class="font-weight-light small mr-4"><i class="far fa-clock mr-1"></i>{{ post_data.publish_time_show | data_format_y_m_d }}</p>
+                        <p class="font-weight-light small"><i class="fas fa-eye mr-1"></i>阅读({{ post_data.read_num }})</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 文章内容 -->
+            <div class="row" style="background-color: white">
+                <div class="col-md-12 pb-4" id="post-content">
+                    {% autoescape off%}
+                    {{ post_data.content_html}}
+                    {% endautoescape %}
+                </div>
+            </div>
+        </div>
+
+        {% include 'post/right_section.html' %}
+
+    </div>
+
+{% endblock %}
+

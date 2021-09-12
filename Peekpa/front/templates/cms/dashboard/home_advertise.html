@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header border-0">
+    <h3 class="card-title">广告内容区</h3>
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+        <i class="fas fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row d-flex mb-4">
+      跳转链接：<a href="{{ advertise_link.link_url }}" target="_blank"
+        >{{ advertise_link.link_url }}</a
+      >
+    </div>
+    <div class="row d-flex">
+      广告图片： {% if advertise_link %}
+      <img
+        class="img-thumbnail w-50"
+        src="{{ advertise_link.image_url }}"
+        alt=""
+      />
+      {% else %}
+      <img
+        class="img-thumbnail w-50"
+        src="{% static 'image/ad.png' %}"
+        alt=""
+      />
+      {% endif %}
+    </div>
+  </div>
+</div>

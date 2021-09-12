@@ -1,0 +1,7 @@
+#post-content > p {
+    line-height: 28px;
+}
+
+#post-content > p > img{
+    width: 100%!important;
+}

@@ -1,0 +1,62 @@
+{% extends 'cms/base/cms_base.html' %}
+{% load time_filters %}
+
+{% block title %}
+    Link Management
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid pt-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row p-2 d-flex justify-content-between">
+                                <p class="h3">友链管理</p>
+                                <div class="float-right">
+                                    <a class="btn btn-primary text-right" href="{% url 'cms:link_publish_view' %}"><i class="mr-2 fas fa-plus"></i>新增</a>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 10%;">#</th>
+                                        <th>Name</th>
+                                        <th>Show_Name</th>
+                                        <th>Status</th>
+                                        <th>Url</th>
+                                        <th>Create_time</th>
+                                        <th class="w-25">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in list_data %}
+                                        <tr>
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.show_name }}</td>
+                                            <td>
+                                                {% for list_item in list_data_status %}
+                                                    {% if item.status == list_item.0 %}
+                                                        {{ list_item.1 }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td><a href="{{ item.url }}">{{ item.url }}</a></td>
+                                            <td>{{ item.create_time | data_format_y_m_d }}</td>
+                                            <td>
+                                                <a class="btn btn-info btn-xs" href="{% url 'cms:link_edit_view' %}?link_id={{ item.id }}">修改</a>
+                                                <a href="{% url 'cms:link_delete' %}?link_id={{ item.id }}" class="btn btn-danger btn-xs">删除</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,19 @@
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar bg-dark">
+    <div class="collapse navbar-collapse pl-4 ml-4">
+        <a class="navbar-brand mr-4 " href="/"><p class="h2 mb-0"><b>Peekpa</b></p></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% url 'post:index' as index %}
+            {% url 'cms:dashboard' as cms %}
+            {% url 'post:post_list' as post_list %}
+            <li class="nav-item mr-4">
+                <a class="nav-link {% if request.path == index %}active{% endif %}" href="{{ index }}">首页</a>
+            </li>
+            <li class="nav-item mr-4">
+                <a class="nav-link {% if request.path == post_list %}active{% endif %}" href="{{ post_list }}">文章</a>
+            </li>
+            <li class="nav-item mr-4">
+                <a class="nav-link {% if request.path == cms %}active{% endif %}" href="{{ cms }}">CMS后台</a>
+            </li>
+        </ul>
+    </div>
+</header>

@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <a href="{% url 'cms:post_manage_view' %}" class="">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ post_num }}</h3>
+                    <p>文章总数</p>
+                </div>
+                <div class="icon">
+                    <i class="far fa-copy"></i>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-6">
+        <a href="#">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ day_visit_ip_num }}</h3>
+                <p>新增访问数</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-robot"></i>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-6">
+        <a href="#">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{ day_visit_num }}</h3>
+                <p>新增访问人数</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+        </div>
+            </a>
+    </div>
+    <div class="col-lg-3 col-6">
+        <a href="#">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>{{ total_visit_num }}</h3>
+                    <p>网站总访问量</p>
+                </div>
+                <div class="icon">
+                    <i class="far fa-compass"></i>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

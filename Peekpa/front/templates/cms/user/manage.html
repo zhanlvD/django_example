@@ -1,0 +1,58 @@
+{% extends 'cms/base/cms_base.html' %}
+{% load time_filters %}
+
+{% block title %}
+    User Management
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid pt-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row p-2 d-flex justify-content-between">
+                                <p class="h3">用户管理</p>
+                                <div class="float-right">
+                                    <a class="btn btn-primary text-right" href="{% url 'cms:user_publish_view' %}"><i class="mr-2 fas fa-plus"></i>新增</a>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 10%;">Username</th>
+                                        <th>Email</th>
+                                        <th>Is_active</th>
+                                        <th>Is_staff</th>
+                                        <th>Is_superuser</th>
+                                        <th>Create_time</th>
+                                        <th style="width: 10%;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in list_data %}
+                                        <tr>
+                                            <td>{{ item.username }}</td>
+                                            <td>{{ item.email }}</td>
+                                            <td>{{ item.is_active}}</td>
+                                            <td>{{ item.is_staff}}</td>
+                                            <td>{{ item.is_superuser}}</td>
+                                            <td>{{ item.data_joined | data_format_y_m_d }}</td>
+                                            <td>
+                                                <a href="{% url 'cms:user_edit_view' %}?user_id={{ item.uid }}" class="btn btn-info btn-xs">修改</a>
+                                                {% if not item.is_superuser %}
+                                                    <a href="{% url 'cms:user_delete' %}?user_id={{ item.uid }}" class="btn btn-danger btn-xs">删除</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

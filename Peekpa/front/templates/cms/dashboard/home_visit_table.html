@@ -1,0 +1,33 @@
+{% load time_filters %}
+<div class="card">
+    <div class="card-header border-0">
+        <h3 class="card-title">用户访问区</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body table-responsive p-0">
+        <table class="table table-striped table-valign-middle">
+            <thead>
+            <tr>
+                <th>IP</th>
+                <th>访问页面</th>
+                <th>访问时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if visitor_data_list %}
+                {% for visitor_data in visitor_data_list %}
+                    <tr>
+                        <td>{{ visitor_data.ip_address }}</td>
+                        <td>{{ visitor_data.end_point }}</td>
+                        <td>{{ visitor_data.create_time | data_format_y_m_d_h_m_s }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

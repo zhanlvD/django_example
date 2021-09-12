@@ -1,0 +1,89 @@
+{% extends 'base/front_base.html' %}
+{% load time_filters %}
+
+{% block title %}
+    Peekpa 文章列表
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4 mb-4">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="row">
+                    <ul class="col-sm-12 d-block">
+                        {% for post in hot_post %}
+                            <!-- 热门文章 -->
+                            <li class="row mb-3" style="height: 180px;background-color: white">
+                                <div class="col-sm-4 p-3 h-100">
+                                    <a href="{% url 'post:detail' time_id=post.time_id %}" class="w-100 h-100">
+                                        <img src="{{ post.thumbnail }}" class="w-100 h-100">
+                                        <div class="position-absolute mt-3"
+                                             style="top:0;background-color: rgba(32,120,255,0.9)">
+                                            <p class="small m-1 text-light">{{ post.category.name }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-sm-8 d-flex flex-column">
+                                    <p class="h5 mt-3 border-bottom mb-0 pb-2">
+                                        <a href="{% url 'post:detail' time_id=post.time_id %}"
+                                           class="text-decoration-none text-dark">{{ post.title }}
+                                        </a>
+                                    </p>
+                                    <p class="small mt-2" style="font-size: 95%;">{{ post.description }}</p>
+                                    <div class="d-flex flex-row justify-content-between mt-auto">
+                                        <p class="font-weight-light small pl-1 mb-3">{{ post.author.username }}</p>
+                                        <p class="font-weight-light small pr-1 mb-3">阅读({{ post.read_num }})</p>
+                                        <p class="font-weight-light small pr-1 mb-3">{{ post.publish_time | data_format_y_m_d }}</p>
+                                    </div>
+                                </div>
+                                <div class="position-absolute" style="right: 0">
+                                    <p class="mb-0 bg-danger font-bold pl-2 pr-2 font-weight-bold rounded-left rounded-bottom text-light">
+                                        HOT</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                        {% for post in list_post %}
+                            <!-- 普通文章 -->
+                            <li class="row mb-3" style="height: 180px;background-color: white">
+                                <div class="col-sm-4 p-3 h-100">
+                                    <a href="{% url 'post:detail' time_id=post.time_id %}" class="w-100 h-100">
+                                        <img src="{{ post.thumbnail }}" class="w-100 h-100">
+                                        <div class="position-absolute mt-3"
+                                             style="top:0;background-color: rgba(32,120,255,0.9)">
+                                            <p class="small m-1 text-light">{{ post.category.name }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-sm-8 d-flex flex-column">
+                                    <p class="h5 mt-3 border-bottom mb-0 pb-2">
+                                        <a href="{% url 'post:detail' time_id=post.time_id %}"
+                                           class="text-decoration-none text-dark">{{ post.title }}
+                                        </a>
+                                    </p>
+                                    <p class="small mt-2" style="font-size: 95%;">{{ post.description }}</p>
+                                    <div class="d-flex flex-row justify-content-between mt-auto">
+                                        <p class="font-weight-light small pl-1 mb-3">{{ post.author.username }}</p>
+                                        <p class="font-weight-light small pr-1 mb-3">阅读({{ post.read_num }})</p>
+                                        <p class="font-weight-light small pr-1 mb-3">{{ post.publish_time | data_format_y_m_d }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+            </div>
+
+            {% include 'post/right_section.html' %}
+
+        </div>
+    </div>
+{% endblock %}
+

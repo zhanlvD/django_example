@@ -1,0 +1,57 @@
+{% extends 'cms/base/cms_base.html' %}
+{% load time_filters %}
+
+{% block title %}
+    Advertise Management
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid pt-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row p-2 d-flex justify-content-between">
+                                <p class="h3">广告管理</p>
+                                <div class="float-right">
+                                    <a class="btn btn-primary text-right" href="{% url 'cms:advertise_publish_view' %}"><i class="mr-2 fas fa-plus"></i>新增</a>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 10%;">#</th>
+                                        <th>Title</th>
+                                        <th>Image URL</th>
+                                        <th>Link URL</th>
+                                        <th style="width: 15%;">Create Time</th>
+                                        <th style="width: 15%;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in list_data %}
+                                        <tr>
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.title }}</td>
+                                            <td>{{ item.image_url }}</td>
+                                            <td>{{ item.link_url }}</td>
+                                            <td>{{ item.create_time }}</td>
+                                            <td>
+                                                <a href="{% url 'cms:advertise_edit_view' %}?advertise_id={{ item.id }}" class="btn btn-info btn-xs" >修改</a>
+                                                <a href="{% url 'cms:advertise_delete' %}?advertise_id={{ item.id }}" class="btn btn-danger btn-xs">删除</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'cms/base/cms_base.html' %}
+
+{% block title %}
+    Category Publish
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center pt-4">
+                <div class="col-sm-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            {% if item_data %}
+                                <h3 class="card-title">分类标签修改</h3>
+                            {% else %}
+                                <h3 class="card-title">分类标签新增</h3>
+                            {% endif %}
+                        </div>
+                        <form class="form-horizontal" action="{% url 'cms:category_add' %}" method="post">
+                            {% csrf_token %}
+                            {% if item_data %}
+                                <input type="text" class="form-control" id="pk" name="pk" value="{{ item_data.id }}" hidden>
+                            {% endif %}
+                            <div class="card-body">
+                                <div class="form-group row mb-0">
+                                    <label for="name" class="col-form-label col-sm-2 text-center">Name</label>
+                                    <div class="col-sm-10">
+                                        {% if item_data %}
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ item_data.name }}">
+                                        {% else %}
+                                            <input type="text" class="form-control" id="name" name="name">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                {% if item_data %}
+                                    <button type="submit" class="btn btn-info" name="modify">确认</button>
+                                    <button type="submit" class="btn btn-danger float-right" name="cancel">取消</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-primary" name="submit">确认</button>
+                                    <button type="submit" class="btn btn-danger float-right" name="back">返回</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

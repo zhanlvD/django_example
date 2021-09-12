@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="card-header border-0">
+        <h3 class="card-title">访问统计情况</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="d-flex">
+            <p class="d-flex flex-column">
+                <span class="text-bold text-lg">{{ visit_week_total_number }}</span>
+                <span>本周访问量</span>
+            </p>
+            <p class="d-flex flex-column ml-auto">
+                <span class="mr-2 ml-auto">
+                <i class="fas fa-square text-primary"></i> 本周
+                </span>
+                <span class="mr-2 ml-auto">
+                <i class="fas fa-square text-secondary"></i> 上周
+                </span>
+            </p>
+
+        </div>
+        <div class="position-relative mb-4">
+            <canvas id="visitors-chart" height="200"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var ticksStyle = {
+            fontColor: '#495057',
+            fontStyle: 'bold'
+        }
+        var $visitorsChart = $('#visitors-chart')
+        var visitorsChart2 = new Chart($visitorsChart, {
+            data: {
+                labels: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日', ],
+                datasets: [{
+                    type: 'line',
+                    data: {{ this_week_data_list }},
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    pointBorderColor: '#007bff',
+                    pointBackgroundColor: '#007bff',
+                    fill: true
+                }, {
+                    type: 'line',
+                    data: {{ last_week_data_list }},
+                    backgroundColor: 'tansparent',
+                    borderColor: '#ced4da',
+                    pointBorderColor: '#ced4da',
+                    pointBackgroundColor: '#ced4da',
+                    fill: false // pointHoverBackgroundColor: '#ced4da',
+                    // pointHoverBorderColor    : '#ced4da'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: 'index',
+                    intersect: true
+                },
+                hover: {
+                    mode: 'index',
+                    intersect: true
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        // display: false,
+                        gridLines: {
+                            display: true,
+                            lineWidth: '4px',
+                            color: 'rgba(0, 0, 0, .2)',
+                            zeroLineColor: 'transparent'
+                        },
+                        ticks: $.extend({
+                            beginAtZero: false,
+                            suggestedMax: {{ suggested_max }}
+                        }, ticksStyle)
+                    }],
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: ticksStyle
+                    }]
+                }
+            }
+        })
+    })
+</script>
